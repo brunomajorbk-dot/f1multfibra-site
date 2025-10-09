@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitar Plano - MultFibra</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #0a0a0a;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #34c759;
+    box-shadow: 0 0 5px rgba(52,199,89,0.5);
+  }
+
+  button {
+    width: 100%;
+    background: linear-gradient(135deg, #34c759, #007aff);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+
+  optgroup {
+    font-weight: bold;
+    color: #007aff;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>📋 Solicitar Plano</h2>
+
+    <label>Nome completo:</label>
+    <input type="text" id="nome" placeholder="Seu nome" required>
+
+    <label>WhatsApp:</label>
+    <input type="text" id="whatsapp" placeholder="(11) 98886-1680" required>
+
+    <label>Rua:</label>
+    <input type="text" id="rua" placeholder="Ex: Rua das Flores, 123" required>
+
+    <label>Bairro:</label>
+    <input type="text" id="bairro" placeholder="Ex: Centro" required>
+
+    <label>Cidade:</label>
+    <input type="text" id="cidade" placeholder="Ex: São Paulo" required>
+
+    <label>Plano escolhido:</label>
+    <select id="plano" required>
+      <option value="">Selecione um plano</option>
+
+      <optgroup label="Combos de Internet + TV">
+        <option value="Combo 600MB + TV R$ 128,90">Combo 600MB + TV — R$ 128,90</option>
+        <option value="Combo 800MB + TV R$ 149,90">Combo 800MB + TV — R$ 149,90</option>
+      </optgroup>
+
+      <optgroup label="Planos de Internet">
+        <option value="Básico 100MB R$ 79,90">Básico 100MB — R$ 79,90</option>
+        <option value="Intermediário 200MB R$ 88,90">Intermediário 200MB — R$ 88,90</option>
+        <option value="Avançado 500MB R$ 98,90">Avançado 500MB — R$ 98,90</option>
+        <option value="Ultra 600MB R$ 118,90">Ultra 600MB — R$ 118,90</option>
+        <option value="Turbo 800MB R$ 139,90">Turbo 800MB — R$ 139,90</option>
+      </optgroup>
+    </select>
+
+    <label>Observações (opcional):</label>
+    <textarea id="obs" placeholder="Ex: Instalação urgente, melhor horário, etc..." rows="3"></textarea>
+
+    <button type="button" onclick="enviarWhatsApp()">📲 Enviar via WhatsApp</button>
+  </div>
+
+<script>
+function enviarWhatsApp() {
+  const numero = "5511988861680"; // Seu número com DDI + DDD
+
+  const nome = document.getElementById("nome").value.trim();
+  const whatsapp = document.getElementById("whatsapp").value.trim();
+  const rua = document.getElementById("rua").value.trim();
+  const bairro = document.getElementById("bairro").value.trim();
+  const cidade = document.getElementById("cidade").value.trim();
+  const plano = document.getElementById("plano").value.trim();
+  const obs = document.getElementById("obs").value.trim();
+
+  if (!nome || !whatsapp || !rua || !bairro || !cidade || !plano) {
+    alert("Por favor, preencha todos os campos obrigatórios antes de enviar.");
+    return;
+  }
+
+  const mensagem = `📝 *Novo formulário de solicitação MultFibra:*
+👤 *Nome:* ${nome}
+📱 *WhatsApp:* ${whatsapp}
+🏠 *Rua:* ${rua}
+📍 *Bairro:* ${bairro}
+🏙️ *Cidade:* ${cidade}
+⚡ *Plano escolhido:* ${plano}
+💬 *Observações:* ${obs || "—"}`;
+
+  const texto = encodeURIComponent(mensagem);
+  const url = `https://wa.me/${numero}?text=${texto}`;
+  window.open(url, "_blank");
+}
+</script>
+</body>
+</html>
